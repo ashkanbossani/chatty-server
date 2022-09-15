@@ -1,24 +1,24 @@
 const User = require("../model/userModel");
 const bcrypt = require("bcrypt");
 
-module.exports.register = (req, res, next) => {
+module.exports.register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
-    const usernameCheck = User.findOne({ username });
+    const usernameCheck = await User.findOne({ username });
     if (usernameCheck)
       return res.status(400).json({ message: "Username already exists" });
-    const emailCheck = User.findOne({ email });
+    const emailCheck = await User.findOne({ email });
     if (emailCheck)
       return res.status(400).json({ message: "Email already exists" });
     const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt);
-    const newUser = new User({
+    const hashedPassword = await bcrypt.hashSync(password, salt);
+    const user = await User.create({
       username,
       email,
       password: hashedPassword,
     });
-    delete newUser.password;
-    return res.json({ status: true, newUser})
+    delete user.password;
+    return res.json({ status: true, user });
   } catch (ex) {
     next(ex);
   }
