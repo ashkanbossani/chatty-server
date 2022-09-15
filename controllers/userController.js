@@ -29,10 +29,10 @@ module.exports.login = async (req, res, next) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
     if (!user)
-      return res.status(400).json({ message: "Incorrect username or password" });
-  const isPasswordVaild = await bcrypt.compare(password, user.password);
+      return res.json({ msg: "Incorrect username or password", status: false });
+  const isPasswordVaild = await bcrypt.compareSync(password, user.password);
   if(!isPasswordVaild)
-  return res.status(400).json({ message: "Incorrect username or password" });
+  return res.json({ msg: "Incorrect username or password", status: false });
   delete user.password;
     return res.json({ status: true, user });
   } catch (ex) {
