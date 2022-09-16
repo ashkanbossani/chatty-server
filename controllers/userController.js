@@ -56,3 +56,5 @@ module.exports.setAvatar = async (req, res, next) => {
     next(ex);
   }
 };
+
+module.exports.getAllUsers = async (req, res, next) => {};
