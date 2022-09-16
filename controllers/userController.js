@@ -39,3 +39,5 @@ module.exports.login = async (req, res, next) => {
     next(ex);
   }
 };
+
+module.exports.setAvatar = async (req, res, next) => {}
