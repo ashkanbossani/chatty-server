@@ -1,4 +1,4 @@
-const {  } = require("../controllers/messagesController");
+const { addMessage, getAllMessage } = require("../controllers/messagesController");
 
 const router = require("express").Router();
 
