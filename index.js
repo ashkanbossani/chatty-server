@@ -15,14 +15,17 @@ app.use("/api/messages", messageRoutes);
 
 const connectionstring = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.sdk1o7l.mongodb.net/test`;
 
-mongoose.connect(connectionstring, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(()=>{
+mongoose
+  .connect(connectionstring, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
     console.log("Connected to MongoDB");
-}).catch((err)=>{
+  })
+  .catch((err) => {
     console.log(err.message);
-});
+  });
 
 const server = app.listen(process.env.PORT || 5050, () => {
   console.log(`Server is running on port: ${process.env.PORT}`);
@@ -32,7 +35,7 @@ const io = socket(server, {
   cors: {
     origin: "http://localhost:3000",
     credentials: true,
-}
+  },
 });
 
 global.onlineUsers = new Map();
@@ -43,10 +46,10 @@ io.on("connection", (socket) => {
     onlineUsers.set(socket.id, userId);
   });
 
-socket.on("send-msg", (data) => {
-  const sendUserSocket = onlineUsers.get(data.to);
-  if (sendUserSocket) {
-    io.to(sendUserSocket).emit("msg-recieve", data.msg);
-  }
-});
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+    }
+  });
 });
