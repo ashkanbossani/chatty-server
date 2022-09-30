@@ -15,6 +15,8 @@ app.use("/api/messages", messageRoutes);
 
 const connectionstring = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.sdk1o7l.mongodb.net/test`;
 
+const PORT = process.env.PORT || 5050
+
 mongoose
   .connect(connectionstring, {
     useNewUrlParser: true,
@@ -27,7 +29,7 @@ mongoose
     console.log(err.message);
   });
 
-const server = app.listen(process.env.PORT || 5050, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port: ${process.env.PORT}`);
 });
 
