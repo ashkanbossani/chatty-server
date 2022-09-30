@@ -15,7 +15,7 @@ app.use("/api/messages", messageRoutes);
 
 const connectionstring = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.sdk1o7l.mongodb.net/test`;
 
-const port = process.env.PORT || 5050
+const port = process.env.PORT || 5000
 
 mongoose
   .connect(connectionstring, {
