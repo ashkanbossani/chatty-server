@@ -15,7 +15,7 @@ app.use("/api/messages", messageRoutes);
 
 const connectionstring = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.sdk1o7l.mongodb.net/test`;
 
-const PORT = process.env.PORT || 5050
+const port = process.env.PORT || 5050
 
 mongoose
   .connect(connectionstring, {
@@ -29,13 +29,13 @@ mongoose
     console.log(err.message);
   });
 
-const server = app.listen(PORT, () => {
-  console.log(`Server is running on port: ${process.env.PORT}`);
+const server = app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
 });
 
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://chatty-app-client.netlify.app",
     credentials: true,
   },
 });
