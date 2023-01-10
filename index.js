@@ -35,8 +35,7 @@ const server = app.listen(port, () => {
 
 const io = socket(server, {
   cors: {
-    origin: "https://chatty-app-server.herokuapp.com",
-    methods: ["GET", "POST"],
+    origin: "https://chatty-app-client.netlify.app",
     credentials: true,
   },
 });
